@@ -514,6 +514,13 @@ class QueryInterfaceSpec extends FlatSpec with Matchers with DBSettings with SQL
 
         productCount should equal(2)
 
+        // distinct count multiple columns
+        val productAndOrderCount = withSQL {
+          select(count(distinct(o.productId, o.id))).from(Order as o)
+        }.map(_.int(1)).single.apply().get
+
+        productAndOrderCount should equal(11)
+
         // enabled wildcard count but it doesn't work with all the RDBMS
         // HSQLDB: sytax error, H2: always treated as *, MySQL: syntax error
         val wildCardCountSyntax = select(o.productId, count(p), count(a))

@@ -319,7 +319,7 @@ object SQLSyntax {
   def exists(sqlPart: SQLSyntax): SQLSyntax = SQLSyntax.empty.exists(sqlPart)
   def notExists(sqlPart: SQLSyntax): SQLSyntax = SQLSyntax.empty.notExists(sqlPart)
 
-  def distinct(columns: SQLSyntax*): SQLSyntax = sqls"distinct ${csv(columns: _*)}"
+  def distinct(columns: SQLSyntax*): SQLSyntax = sqls"distinct(${csv(columns: _*)})"
 
   def avg(column: SQLSyntax): SQLSyntax = sqls"avg(${column})"
 
